@@ -1,0 +1,22 @@
+@media screen and (max-width: 640px) {
+    #restaurant-wrapper {
+        display: block;
+    }
+
+    .restaurant-info {
+        width: 100%;
+    }
+
+    .restaurant-hours {
+        width: 100%;
+    }
+
+
+    #restaurants-list li {
+        width: 100%;
+    }
+
+    #restaurants-list .view-details {
+        width: calc(100% - 60px);
+    }
+}

@@ -1,0 +1,71 @@
+@media screen and (max-width: 960px) {
+
+    #maincontent {
+        width: 100%;
+        flex-direction: row;
+
+    }
+    #map-container {
+        width: 100%;
+        position: relative !important;
+        height: 300px;
+        margin: 20px !important;
+        display: none;
+    }
+
+    #restaurant-container {
+        width: 100%;
+        padding: 40px;
+        padding-top: 140px;
+    }
+
+    #restaurant-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #reviews-container {
+        width: 100%;
+    }
+
+    #breadcrumb {
+        width: 100%;
+    }
+
+    #restaurant-name {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #restaurant-img, restaurant-cuisine {
+        width: 100%;
+    }
+
+    .restaurant-info {
+        order: 1;
+        width: 40%;
+        padding-right: 20px;
+    }
+
+    .restaurant-hours {
+        order: 2;
+        width: 60%;
+    }
+
+    /* Restaurant list */
+    #restaurants-list {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    #restaurants-list li {
+        width: calc(100% / 2.5);
+    }
+
+    #restaurants-list .view-details {
+        width: calc(100% - 60px);
+    }
+}
