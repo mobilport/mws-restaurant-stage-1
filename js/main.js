@@ -80,6 +80,18 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false
   });
+
+  // Users really should not tab on google maps internal links
+    google.maps.event.addListener(self.map, "tilesloaded", function() {
+        setTimeout(function() {
+          document.querySelectorAll('#map a').forEach(function (item) {
+              item.setAttribute('tabindex', '-1');
+          });
+        }, 1000);
+    });
+
+
+
   updateRestaurants();
 }
 
