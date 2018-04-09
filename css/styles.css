@@ -6,7 +6,7 @@ body,td,th,p{
 	font-size: 10pt;
 	color: #333;
 	line-height: 1.5;
-  min-width: 350px;
+  min-width: 150px;
   padding: 0;
   margin: 0;
 }
@@ -137,6 +137,11 @@ nav h1 a {
   width: 200px;
 }
 
+.filter-wrapper {
+  max-width: calc(960px + 40px);
+  margin: 0 auto;
+}
+
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
   background-color: #f3f3f3;
@@ -258,7 +263,7 @@ nav h1 a {
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-	width: 90%;
+	width: 100%;
 }
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
@@ -320,7 +325,7 @@ nav h1 a {
 }
 
 .review-content {
-  padding: 0 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .review-comments {
@@ -337,4 +342,8 @@ nav h1 a {
   float: left;
   text-transform: uppercase;
   margin: 15px 0;
+}
+
+.restaurant-info {
+  width: calc(100% - 20px);
 }

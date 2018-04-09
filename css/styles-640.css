@@ -12,6 +12,10 @@
     }
 
 
+    #restaurant-wrapper {
+        width: calc(100% - 80px)
+    }
+
     #restaurants-list li {
         width: 100%;
     }

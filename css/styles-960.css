@@ -22,9 +22,14 @@
     #restaurant-wrapper {
         display: flex;
         flex-direction: row;
+        width: calc(100% - 60px);
     }
 
     #reviews-container {
+        width: calc(100% - 80px);
+    }
+
+    #reviews-list li {
         width: 100%;
     }
 
