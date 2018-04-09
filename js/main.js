@@ -90,8 +90,6 @@ window.initMap = () => {
         }, 1000);
     });
 
-
-
   updateRestaurants();
 }
 
@@ -137,11 +135,20 @@ resetRestaurants = (restaurants) => {
  * Create all restaurants HTML and add them to the webpage.
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
-  const ul = document.getElementById('restaurants-list');
-  restaurants.forEach(restaurant => {
-    ul.append(createRestaurantHTML(restaurant));
-  });
-  addMarkersToMap();
+  if (restaurants.length > 0) {
+	  const ul = document.getElementById('restaurants-list');
+	  restaurants.forEach(restaurant => {
+		  ul.append(createRestaurantHTML(restaurant));
+	  });
+	  addMarkersToMap();
+  } else {
+      const noRestaurant = document.createElement('p');
+      const ul = document.getElementById('restaurants-list');
+
+      noRestaurant.innerHTML = 'There are no restaurants based on your search. Please modify filters!';
+      ul.append(noRestaurant)
+  }
+
 }
 
 /**
