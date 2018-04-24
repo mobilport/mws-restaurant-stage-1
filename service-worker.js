@@ -7,14 +7,18 @@ var filesToCache = [
 	'/css/styles.css',
 	'/css/styles-640.css',
 	'/css/styles-960.css',
+	'/js/vendor/idb.js',
+	'/js/idb.js',
+	'/js/main.js',
+	'/js/restaurant_info.js',
+	'/js/dbhelper.js',
 	'/index.html',
 	'/restaurant.html'
 ];
 
-var staticCacheName = 'pages-cache-v2';
+var staticCacheName = 'pages-cache-v3';
 
 self.addEventListener('install', function(event) {
-	console.log('Attempting to install service worker and cache static assets');
 	event.waitUntil(
 		caches.open(staticCacheName)
 			.then(function(cache) {
@@ -27,9 +31,9 @@ self.addEventListener('fetch', function(event) {
 	event.respondWith(
 		caches.match(event.request).then(function(response) {
 			if (response) {
-				return response
+				return response;
 			} else {
-				return fetch(event.request)
+				return fetch(event.request);
 			}
 		})
 	);

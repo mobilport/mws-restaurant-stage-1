@@ -12,6 +12,10 @@ class DBHelper {
 		return `http://localhost:${port}`;
 	}
 
+	static get dbPromise() {
+		return idb.open('restaurant-reviews');
+	}
+
 	static handleErrors(response) {
 		if (!response.ok) {
 			return;
@@ -23,9 +27,31 @@ class DBHelper {
 	 * Fetch all restaurants.
 	 */
 	static fetchRestaurants(callback) {
+		// Trying to read data from idb
+		DBHelper.dbPromise.then(function(db) {
+			var index = db.transaction('restaurants')
+				.objectStore('restaurants').index('id');
+
+			return index.getAll().then(function(restaurants) {
+				callback(null, restaurants.reverse());
+			});
+
+		});
+
+		// Then send the ajax request
 		fetch(DBHelper.DATABASE_URL + '/restaurants')
 			.then(DBHelper.handleErrors)
 			.then(restaurants => {
+
+				DBHelper.dbPromise.then(function(db) {
+					var tx = db.transaction('restaurants', 'readwrite');
+					var restaurantsStore = tx.objectStore('restaurants');
+
+					for (let i = 0; i < restaurants.length; i++) {
+						restaurantsStore.put(restaurants[i]);
+					}
+				});
+
 				callback(null, restaurants);
 			})
 		;
