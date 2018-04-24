@@ -38,7 +38,6 @@ class DBHelper {
 
 		});
 
-		// Then send the ajax request
 		fetch(DBHelper.DATABASE_URL + '/restaurants')
 			.then(DBHelper.handleErrors)
 			.then(restaurants => {
@@ -61,7 +60,17 @@ class DBHelper {
 	 * Fetch a restaurant by its ID.
 	 */
 	static fetchRestaurantById(id, callback) {
-		// fetch all restaurants with proper error handling.
+		DBHelper.dbPromise.then(function(db) {
+			var index = db.transaction('restaurants')
+				.objectStore('restaurants');
+
+			return index.get(+id).then(function(restaurant) {
+				callback(null, restaurant);
+			});
+
+		});
+
+		// fetch selected restaurant with proper error handling.
 		fetch(DBHelper.DATABASE_URL + '/restaurants/' + id)
 			.then(DBHelper.handleErrors)
 			.then(restaurant => {
