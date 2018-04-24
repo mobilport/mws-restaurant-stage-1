@@ -75,6 +75,15 @@ class DBHelper {
 			.then(DBHelper.handleErrors)
 			.then(restaurant => {
 				if (restaurant) {
+
+					DBHelper.dbPromise.then(function(db) {
+						var tx = db.transaction('restaurants', 'readwrite');
+						var restaurantsStore = tx.objectStore('restaurants');
+
+						restaurantsStore.put(restaurant);
+
+					});
+
 					callback(null, restaurant);
 				} else {
 					window.location.href = '/';
