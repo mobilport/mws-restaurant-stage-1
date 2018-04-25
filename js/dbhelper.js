@@ -16,6 +16,9 @@ class DBHelper {
 		return idb.open('restaurant-reviews');
 	}
 
+	static initLazyLoad() {
+		var myLazyLoad = new LazyLoad();
+	}
 	static handleErrors(response) {
 		if (!response.ok) {
 			return;
@@ -33,7 +36,7 @@ class DBHelper {
 				.objectStore('restaurants').index('id');
 
 			return index.getAll().then(function(restaurants) {
-				callback(null, restaurants.reverse());
+				callback(null, restaurants);
 			});
 
 		});
@@ -41,7 +44,6 @@ class DBHelper {
 		fetch(DBHelper.DATABASE_URL + '/restaurants')
 			.then(DBHelper.handleErrors)
 			.then(restaurants => {
-
 				DBHelper.dbPromise.then(function(db) {
 					var tx = db.transaction('restaurants', 'readwrite');
 					var restaurantsStore = tx.objectStore('restaurants');

@@ -45,12 +45,23 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #footer {
   background-color: #444;
-  color: #aaa;
+  color: #ccc;
   font-size: 8pt;
   letter-spacing: 1px;
   padding: 25px 0;
   text-align: center;
   text-transform: uppercase;
+}
+.offscreen
+{
+  clip-path: inset(100%);
+  clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; /* added line */
+  width: 1px;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -119,7 +130,7 @@ nav h1 a {
 }
 .filter-options h2 {
   color: white;
-  font-size: 1rem;
+  font-size: 1.8rem;
   font-weight: normal;
   line-height: 1;
   padding: 5px 0;

@@ -177,7 +177,7 @@ createRestaurantHTML = (restaurant) => {
 	const image = document.createElement('img');
 	image.className = 'restaurant-img';
 	image.alt = restaurant.name;
-	image.src = DBHelper.imageUrlForRestaurant(restaurant);
+	image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
 	details.append(image);
 
 	const name = document.createElement('h1');
@@ -198,7 +198,11 @@ createRestaurantHTML = (restaurant) => {
 	more.href = DBHelper.urlForRestaurant(restaurant);
 	li.append(more)
 
-	return li
+	setTimeout(function() {
+		DBHelper.initLazyLoad();
+	}, 1);
+
+	return li;
 }
 
 /**
