@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<!-- Normalize.css for better cross-browser consistency -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#252831">
+	<link rel="manifest" href="manifest.json">
 	<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
 	<!-- Main CSS file -->
 	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/styles-960.css" media="screen and (max-device-width: 960px)">
-	<link rel="stylesheet" href="css/styles-640.css" media="screen and (max-device-width: 640px)">
+	<link rel="stylesheet" href="css/styles-960.css">
+	<link rel="stylesheet" href="css/styles-640.css">
 	<title>Restaurant Info</title>
 </head>
 
 <body class="inside">
 <!-- Beginning header -->
-<header role="header">
+<header>
 	<!-- Beginning nav -->
 	<nav role="menu">
 		<h1><a href="/" role="menuitem">Restaurant Reviews</a></h1>
 	</nav>
 	<!-- Beginning breadcrumb -->
 	<ul id="breadcrumb">
-		<li><a href="/" role="listitem">Home</a></li>
 	</ul>
 	<!-- End breadcrumb -->
 	<!-- End nav -->
@@ -52,17 +53,19 @@
 	<!-- End map -->
 	<!-- Beginning reviews -->
 	<section id="reviews-container">
-		<ul id="reviews-list"></ul>
 	</section>
 	<!-- End reviews -->
 </main>
 <!-- End main -->
 
 <!-- Beginning footer -->
-<footer id="footer" role="footer">
+<footer id="footer">
 	Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
 </footer>
 <!-- End footer -->
+
+<!-- image lazyload lib -->
+<script type="text/javascript" src="js/vendor/lazyload.min.js"></script>
 
 <!-- Beginning scripts -->
 <script type="application/javascript" charset="utf-8" src="service-worker.js"></script>

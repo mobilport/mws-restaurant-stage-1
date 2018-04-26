@@ -1,6 +1,13 @@
 let restaurant;
 var map;
 
+// Registering SW
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('service-worker.js')
+		.then()
+		.catch();
+}
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -40,7 +47,7 @@ fetchRestaurantFromURL = (callback) => {
 				return;
 			}
 			fillRestaurantHTML();
-			callback(null, restaurant)
+			callback(null, restaurant);
 		});
 	}
 }
@@ -69,6 +76,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 	}
 	// fill reviews
 	fillReviewsHTML();
+
+	setTimeout(function() {
+		DBHelper.initLazyLoad();
+	}, 1);
 }
 
 /**
@@ -76,6 +87,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
 	const hours = document.getElementById('restaurant-hours');
+	hours.innerHTML = '';
 	for (let key in operatingHours) {
 		const row = document.createElement('tr');
 
@@ -96,6 +108,12 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 	const container = document.getElementById('reviews-container');
+	container.innerHTML = '';
+	const reviewsList = document.createElement('ul');
+	reviewsList.id = 'reviews-list';
+
+	container.appendChild(reviewsList);
+
 	const title = document.createElement('h2');
 	title.innerHTML = 'Reviews';
 	container.appendChild(title);
@@ -153,6 +171,18 @@ createReviewHTML = (review) => {
  */
 fillBreadcrumb = (restaurant = self.restaurant) => {
 	const breadcrumb = document.getElementById('breadcrumb');
+	breadcrumb.innerHTML = '';
+
+	const home = document.createElement('li');
+	const homeLink = document.createElement('a');
+
+	homeLink.innerText = 'Home';
+	homeLink.setAttribute('href', '/');
+	homeLink.setAttribute('role', 'listitem');
+
+	home.appendChild(homeLink);
+	breadcrumb.appendChild(home);
+
 	const li = document.createElement('li');
 	li.innerHTML = restaurant.name;
 	breadcrumb.appendChild(li);

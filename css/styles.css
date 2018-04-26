@@ -105,7 +105,8 @@ nav h1 a {
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-    color: #0275d8;
+    color: #000;
+    font-weight: 700;
     text-decoration: none;
 }
 
@@ -195,7 +196,7 @@ nav h1 a {
   background-repeat: no-repeat;
 }
 #restaurants-list li h1 {
-  color: #f18200;
+  color: #c06000;
   font-family: Arial,sans-serif;
   font-size: 14pt;
   font-weight: 200;
@@ -248,7 +249,7 @@ nav h1 a {
   width: 100%;
 }
 #restaurant-name {
-  color: #f18200;
+  color: #c06000;
   font-family: Arial,sans-serif;
   font-size: 20pt;
   font-weight: 200;
@@ -290,7 +291,7 @@ nav h1 a {
   padding: 30px 40px 80px;
 }
 #reviews-container h2 {
-  color: #f58500;
+  color: #c06000;
   font-size: 24pt;
   font-weight: 300;
   letter-spacing: -1px;
@@ -350,9 +351,11 @@ nav h1 a {
 .review-rating {
   width: auto;
   display: block;
-  border-radius: 3px;
-  color: #fff;
-  background-color: #FFB000;
+  border: 2px solid #f0ad4e;
+  border-radius: 10px;
+  color: #6f1400;
+  background-color: #fff;
+  font-size: 1em;
   padding: 5px 8px;
   float: left;
   text-transform: uppercase;
