@@ -26,6 +26,14 @@ class DBHelper {
 		return response.json();
 	}
 
+	static postNewReview(review) {
+		console.log(review);
+		fetch(DBHelper.DATABASE_URL + '/reviews', {
+			method: 'POST',
+			body: JSON.stringify(review)
+		});
+	}
+
 	/**
 	 * Fetch all restaurants.
 	 */

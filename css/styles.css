@@ -411,6 +411,7 @@ button {
 
 #new-review-form input, #new-review-form select, #new-review-form textarea {
     width: calc(100% - 14px);
+    max-width: calc(100% - 14px);
     -ms-box-sizing:content-box;
     -moz-box-sizing:content-box;
     -webkit-box-sizing:content-box;
@@ -418,4 +419,8 @@ button {
     border: 2px solid #ccc;
     padding: 5px;
     margin: 0;
+}
+
+textarea {
+    min-height: 100px;
 }

@@ -47,7 +47,7 @@
         justify-content: space-between;
     }
 
-    #restaurant-img, restaurant-cuisine {
+    #restaurant-img, .restaurant-cuisine {
         width: 100%;
     }
 

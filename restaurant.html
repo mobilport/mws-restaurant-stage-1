@@ -60,19 +60,28 @@
 	<section id="new-review-form">
 		<div>
 			<h2>Add new review</h2>
-			<div>
-				<label for="name">Name: </label>
-				<input type="text" id="name" name="name">
-			</div>
-			<div>
-				<label for="rating">Rating: </label>
-				<select id="rating" name="rating"></select>
-			</div>
-			<div>
-				<label for="comment">Comment: </label>
-				<textarea id="comment" name="comment"></textarea>
-			</div>
-			<button onclick="hideAddReviewForm(event)">Cancel</button>
+			<form name="review-form">
+				<div>
+					<label for="name">Name: </label>
+					<input type="text" id="name" name="name" required>
+				</div>
+				<div>
+					<label for="rating">Rating: </label>
+					<select id="rating" name="rating">
+						<option value="5">5 stars</option>
+						<option value="4">4 stars</option>
+						<option value="3">3 stars</option>
+						<option value="2">2 stars</option>
+						<option value="1">1 star</option>
+					</select>
+				</div>
+				<div>
+					<label for="comment">Comment: </label>
+					<textarea id="comment" name="comment" required></textarea>
+				</div>
+				<button type="submit">Submit</button>
+				<button onclick="hideAddReviewForm(event)">Cancel</button>
+			</form>
 		</div>
 	</section>
 	<!-- End reviews -->

@@ -1,6 +1,19 @@
 let restaurant;
 var map;
 
+getUrlParams = (url = window.location.href) => {
+	var params = {};
+	(url + '?').split('?')[1].split('&').forEach(function (pair) {
+		pair = (pair + '=').split('=').map(decodeURIComponent);
+		if (pair[0].length) {
+			params[pair[0]] = pair[1];
+		}
+	});
+	return params;
+};
+
+var currentRestaurantId = getUrlParams()['id'];
+
 // Registering SW
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('service-worker.js')
@@ -27,6 +40,24 @@ window.initMap = () => {
 	});
 };
 
+document.querySelector('form').addEventListener('submit', (e) => {
+	const formData = new FormData(e.target);
+
+	let data = {
+		restaurant_id: currentRestaurantId,
+		name: formData.get('name'),
+		rating: formData.get('rating'),
+		comments: formData.get('comment')
+	};
+
+	e.preventDefault();
+
+	DBHelper.postNewReview(data);
+	hideAddReviewForm();
+	// Now you can use formData.get('foo'), for example.
+	// Don't forget e.preventDefault() if you want to stop normal form .submission
+});
+
 showAddReviewForm = (e) => {
 	console.log(e);
 	const container = document.getElementById('new-review-form');
@@ -34,6 +65,8 @@ showAddReviewForm = (e) => {
 
 	const newButton = document.getElementById('new-review');
 	newButton.style.display = "none";
+
+	window.scrollTo(0,document.body.scrollHeight);
 };
 
 hideAddReviewForm = (e) => {
@@ -42,7 +75,7 @@ hideAddReviewForm = (e) => {
 
 	const newButton = document.getElementById('new-review');
 	newButton.style.display = "block";
-}
+};
 
 /**
  * Get current restaurant from page URL.
