@@ -58,6 +58,14 @@ class DBHelper {
 		;
 	}
 
+	static fetchReviews(restaurantId, callback) {
+		fetch(DBHelper.DATABASE_URL + '/reviews/?restaurant_id=' + restaurantId)
+			.then(response => response.json())
+			.then(reviews => {
+				callback(null, reviews);
+			});
+	}
+
 	/**
 	 * Fetch a restaurant by its ID.
 	 */
@@ -91,38 +99,6 @@ class DBHelper {
 					window.location.href = '/';
 				}
 			});
-	}
-
-	/**
-	 * Fetch restaurants by a cuisine type with proper error handling.
-	 */
-	static fetchRestaurantByCuisine(cuisine, callback) {
-		// Fetch all restaurants  with proper error handling
-		DBHelper.fetchRestaurants((error, restaurants) => {
-			if (error) {
-				callback(error, null);
-			} else {
-				// Filter restaurants to have only given cuisine type
-				const results = restaurants.filter(r => r.cuisine_type == cuisine);
-				callback(null, results);
-			}
-		});
-	}
-
-	/**
-	 * Fetch restaurants by a neighborhood with proper error handling.
-	 */
-	static fetchRestaurantByNeighborhood(neighborhood, callback) {
-		// Fetch all restaurants
-		DBHelper.fetchRestaurants((error, restaurants) => {
-			if (error) {
-				callback(error, null);
-			} else {
-				// Filter restaurants to have only given neighborhood
-				const results = restaurants.filter(r => r.neighborhood == neighborhood);
-				callback(null, results);
-			}
-		});
 	}
 
 	/**

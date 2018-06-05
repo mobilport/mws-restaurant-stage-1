@@ -22,5 +22,10 @@ var dbPromise = idb.open('restaurant-reviews', 1, function (upgradeDb) {
 		keyPath: 'id'
 	});
 
+	var reviewsStore = upgradeDb.createObjectStore('reviews', {
+		keyPath: 'id'
+	});
+
 	restaurantsStore.createIndex('id', 'id');
+	reviewsStore.createIndex('id', 'id');
 });
