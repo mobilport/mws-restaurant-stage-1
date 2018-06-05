@@ -78,4 +78,11 @@
     #restaurants-list .view-details {
         width: calc(100% - 60px);
     }
+
+    #new-review-form > div {
+        display: block;
+        width: 100%;
+        clear: both;
+        margin: 20px 0;
+    }
 }

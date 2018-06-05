@@ -55,7 +55,25 @@
 	<section id="reviews-container">
 	</section>
 	<section id="new-review">
-		<button>Add new review</button>
+		<button onclick="showAddReviewForm(event)">Add new review</button>
+	</section>
+	<section id="new-review-form">
+		<div>
+			<h2>Add new review</h2>
+			<div>
+				<label for="name">Name: </label>
+				<input type="text" id="name" name="name">
+			</div>
+			<div>
+				<label for="rating">Rating: </label>
+				<select id="rating" name="rating"></select>
+			</div>
+			<div>
+				<label for="comment">Comment: </label>
+				<textarea id="comment" name="comment"></textarea>
+			</div>
+			<button onclick="hideAddReviewForm(event)">Cancel</button>
+		</div>
 	</section>
 	<!-- End reviews -->
 </main>

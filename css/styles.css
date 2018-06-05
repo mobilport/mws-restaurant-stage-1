@@ -378,11 +378,44 @@ nav h1 a {
     padding-left: 40px;
 }
 
-#new-review button {
+button {
     color: #fff;
     background-color: #222;
     padding: 10px 20px;
     border: none;
     text-decoration: none;
     cursor: pointer;
+}
+
+#new-review-form {
+    padding: 25px 40px 100px 40px;
+    display: none;
+    min-height: 200px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+
+}
+
+#new-review-form > div {
+    display: block;
+    width: calc(50% - 40px);
+    clear: both;
+    margin: 20px 0;
+}
+
+#new-review-form label {
+    display: block;
+    width: 100%;
+    line-height: 25px;
+}
+
+#new-review-form input, #new-review-form select, #new-review-form textarea {
+    width: calc(100% - 14px);
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box;
+    box-sizing:content-box;
+    border: 2px solid #ccc;
+    padding: 5px;
+    margin: 0;
 }

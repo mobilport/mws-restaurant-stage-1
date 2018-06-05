@@ -25,6 +25,23 @@ window.initMap = () => {
 			DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 		}
 	});
+};
+
+showAddReviewForm = (e) => {
+	console.log(e);
+	const container = document.getElementById('new-review-form');
+	container.style.display = "block";
+
+	const newButton = document.getElementById('new-review');
+	newButton.style.display = "none";
+};
+
+hideAddReviewForm = (e) => {
+	const container = document.getElementById('new-review-form');
+	container.style.display = "none";
+
+	const newButton = document.getElementById('new-review');
+	newButton.style.display = "block";
 }
 
 /**
