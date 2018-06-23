@@ -52,14 +52,28 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
 	e.preventDefault();
 
+	if (navigator.onLine === true) {
+		postNewReview(data);
+	} else {
+		const sync = () => {
+			postNewReview(data);
+			window.removeEventListener('online', sync);
+		}
+
+		window.addEventListener('online', sync);
+	}
+
+	// Now you can use formData.get('foo'), for example.
+	// Don't forget e.preventDefault() if you want to stop normal form .submission
+});
+
+postNewReview = (data) => {
 	self.restaurant.reviews.push(data);
 	fillReviewsHTML(self.restaurant.reviews);
 
 	DBHelper.postNewReview(data);
 	hideAddReviewForm();
-	// Now you can use formData.get('foo'), for example.
-	// Don't forget e.preventDefault() if you want to stop normal form .submission
-});
+}
 
 showAddReviewForm = (e) => {
 	console.log(e);
@@ -80,8 +94,21 @@ hideAddReviewForm = (e) => {
 	newButton.style.display = "block";
 };
 
+starClick = () => {
+	if (navigator.onLine === true) {
+		starRestaurant();
+	} else {
+		const sync = () => {
+			starRestaurant();
+			window.removeEventListener('online', sync);
+		}
+
+		window.addEventListener('online', sync);
+	}
+}
+
 starRestaurant = () => {
-	const newFlag = !JSON.parse(self.restaurant.is_favorite);
+	const newFlag = self.restaurant.is_favorite ? !JSON.parse(self.restaurant.is_favorite) : true;
 	DBHelper.putFavorite(self.restaurant.id, newFlag)
 		.then(response => {
 			self.restaurant.is_favorite = JSON.parse(response.is_favorite);
@@ -92,11 +119,11 @@ starRestaurant = () => {
 starRestaurantHtml = () => {
 	const element = document.getElementById('favorite');
 
-	if (!self.restaurant || !self.restaurant.hasOwnProperty('is_favorite')) {
+	if (!self.restaurant) {
 		return;
 	}
 
-	if (JSON.parse(self.restaurant.is_favorite) === true) {
+	if (self.restaurant.hasOwnProperty('is_favorite') && JSON.parse(self.restaurant.is_favorite) === true) {
 		element.className = 'favorited'
 	} else {
 		element.className = 'not-favorited';
