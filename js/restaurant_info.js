@@ -52,6 +52,9 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
 	e.preventDefault();
 
+	self.restaurant.reviews.push(data);
+	fillReviewsHTML(self.restaurant.reviews);
+
 	DBHelper.postNewReview(data);
 	hideAddReviewForm();
 	// Now you can use formData.get('foo'), for example.
@@ -77,6 +80,29 @@ hideAddReviewForm = (e) => {
 	newButton.style.display = "block";
 };
 
+starRestaurant = () => {
+	const newFlag = !JSON.parse(self.restaurant.is_favorite);
+	DBHelper.putFavorite(self.restaurant.id, newFlag)
+		.then(response => {
+			self.restaurant.is_favorite = JSON.parse(response.is_favorite);
+			starRestaurantHtml();
+		});
+}
+
+starRestaurantHtml = () => {
+	const element = document.getElementById('favorite');
+
+	if (!self.restaurant || !self.restaurant.hasOwnProperty('is_favorite')) {
+		return;
+	}
+
+	if (JSON.parse(self.restaurant.is_favorite) === true) {
+		element.className = 'favorited'
+	} else {
+		element.className = 'not-favorited';
+	}
+}
+
 /**
  * Get current restaurant from page URL.
  */
@@ -92,6 +118,7 @@ fetchRestaurantFromURL = (callback) => {
 	} else {
 		DBHelper.fetchRestaurantById(id, (error, restaurant) => {
 			self.restaurant = restaurant;
+			starRestaurantHtml();
 			if (!restaurant) {
 				console.error(error);
 				return;
@@ -207,7 +234,7 @@ createReviewHTML = (review) => {
 
 	const date = document.createElement('span');
 	date.className = "review-date";
-	date.innerHTML = new Date(review.createdAt).toLocaleDateString("en-US");
+	date.innerHTML = review.createdAt ? new Date(review.createdAt).toLocaleDateString("en-US") : 'Pending...';
 	heading.appendChild(date);
 
 	const content = document.createElement('div');
@@ -219,7 +246,7 @@ createReviewHTML = (review) => {
 	rating.className = "review-rating";
 	rating.innerHTML = `Rating: ${review.rating}`;
 	star.className = 'rating-star';
-	star.innerText = '★'.repeat(review.rating);
+	star.innerText = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 	rating.appendChild(star);
 	content.appendChild(rating);
 

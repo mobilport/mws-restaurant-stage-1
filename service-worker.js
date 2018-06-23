@@ -38,3 +38,9 @@ self.addEventListener('fetch', function(event) {
 		})
 	);
 })
+
+self.addEventListener('sync', function(event) {
+	if (event.tag == "oneTimeSync") {
+		console.log('One Time Sync event fired: ', self.registration);
+	}
+});

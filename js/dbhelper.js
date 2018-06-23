@@ -34,6 +34,12 @@ class DBHelper {
 		});
 	}
 
+	static putFavorite(restaurantId, flag) {
+		return fetch(DBHelper.DATABASE_URL + '/restaurants/' + restaurantId + '/?is_favorite=' + flag, {
+			method: 'PUT'
+		}).then(DBHelper.handleErrors);
+	}
+
 	/**
 	 * Fetch all restaurants.
 	 */

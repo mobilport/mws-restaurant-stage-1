@@ -39,6 +39,47 @@ h1, h2, h3, h4, h5, h6 {
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+#favorite {
+  line-height: 30px;
+  font-size: 1.2em;
+  margin-bottom: 50px;
+}
+
+#favorite, #favorite:active, #favorite:visited, #favorite:focus {
+  color: #3397db;
+}
+
+.not-favorited:before {
+  content:'☆';
+  font-size: 1.5em;
+  float: left;
+  margin-right: 5px;
+  margin-top: -2px;
+  margin-bottom: 10px;
+}
+
+.not-favorited:after {
+  content: 'Click to save as favorite';
+  display: block;
+  float: left;
+}
+
+.favorited:before {
+  content:'★';
+  font-size: 1.5em;
+  float: left;
+  margin-right: 5px;
+  margin-top: -2px;
+  margin-bottom: 10px;
+}
+
+.favorited:after {
+  content:'Saved as favorite';
+  display: block;
+  float: left;
+}
+
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
@@ -255,7 +296,7 @@ nav h1 a {
   font-size: 20pt;
   font-weight: 200;
   letter-spacing: 0;
-  margin: 15px 0 30px;
+  margin: 15px 0 5px;
   text-transform: uppercase;
   line-height: 1.1;
 }
