@@ -43,7 +43,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #favorite {
   line-height: 30px;
   font-size: 1.2em;
-  margin-bottom: 50px;
+  float: left;
 }
 
 #favorite, #favorite:active, #favorite:visited, #favorite:focus {
