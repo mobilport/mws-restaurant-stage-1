@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	fetchCuisines();
 });
 
+$(document).ready(function() {
+	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap');
+});
+
 /**
  * Fetch all neighborhoods and set their HTML.
  */

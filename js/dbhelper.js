@@ -28,10 +28,10 @@ class DBHelper {
 
 	static postNewReview(review) {
 		console.log(review);
-		fetch(DBHelper.DATABASE_URL + '/reviews', {
+		return fetch(DBHelper.DATABASE_URL + '/reviews', {
 			method: 'POST',
 			body: JSON.stringify(review)
-		});
+		}).then(DBHelper.handleErrors);
 	}
 
 	static putFavorite(restaurantId, flag) {

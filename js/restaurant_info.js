@@ -24,6 +24,12 @@ if ('serviceWorker' in navigator) {
 /**
  * Initialize Google map, called from HTML.
  */
+
+$(document).ready(function() {
+	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap');
+});
+
+
 window.initMap = () => {
 	fetchRestaurantFromURL((error, restaurant) => {
 		if (error) { // Got an error!
@@ -52,6 +58,10 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
 	e.preventDefault();
 
+	self.restaurant.reviews.push(data);
+	fillReviewsHTML(self.restaurant.reviews);
+	hideAddReviewForm();
+
 	if (navigator.onLine === true) {
 		postNewReview(data);
 	} else {
@@ -68,11 +78,22 @@ document.querySelector('form').addEventListener('submit', (e) => {
 });
 
 postNewReview = (data) => {
-	self.restaurant.reviews.push(data);
-	fillReviewsHTML(self.restaurant.reviews);
+	DBHelper.postNewReview(data)
+		.then(review => {
+			//self.restaurant.reviews.push(review);
+			//fillReviewsHTML();
 
-	DBHelper.postNewReview(data);
-	hideAddReviewForm();
+			DBHelper.fetchReviews(currentRestaurantId, (error, reviews) => {
+				if (error) {
+					fillRestaurantHTML();
+				} else {
+					// Could load all reviews for given restaurant
+					self.restaurant.reviews = reviews;
+
+					fillRestaurantHTML();
+				}
+			});
+		});
 }
 
 showAddReviewForm = (e) => {
@@ -95,6 +116,9 @@ hideAddReviewForm = (e) => {
 };
 
 starClick = () => {
+	self.restaurant.is_favorite = !self.restaurant.is_favorite;
+	starRestaurantHtml();
+
 	if (navigator.onLine === true) {
 		starRestaurant();
 	} else {
@@ -111,7 +135,7 @@ starRestaurant = () => {
 	const newFlag = self.restaurant.is_favorite ? !JSON.parse(self.restaurant.is_favorite) : true;
 	DBHelper.putFavorite(self.restaurant.id, newFlag)
 		.then(response => {
-			self.restaurant.is_favorite = JSON.parse(response.is_favorite);
+			//self.restaurant.is_favorite = JSON.parse(response.is_favorite);
 			starRestaurantHtml();
 		});
 }

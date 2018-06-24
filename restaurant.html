@@ -6,11 +6,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#252831">
 	<link rel="manifest" href="manifest.json">
-	<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
-	<!-- Main CSS file -->
-	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/styles-960.css">
-	<link rel="stylesheet" href="css/styles-640.css">
+
+	<noscript id="deferred-styles">
+		<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
+		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/styles-960.css">
+		<link rel="stylesheet" href="css/styles-640.css">
+	</noscript>
+	<script>
+		var loadDeferredStyles = function() {
+			var addStylesNode = document.getElementById("deferred-styles");
+			var replacement = document.createElement("div");
+			replacement.innerHTML = addStylesNode.textContent;
+			document.body.appendChild(replacement)
+			addStylesNode.parentElement.removeChild(addStylesNode);
+		};
+		var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+			window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+		if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+		else window.addEventListener('load', loadDeferredStyles);
+	</script>
 	<title>Restaurant Info</title>
 </head>
 
@@ -96,6 +111,12 @@
 </footer>
 <!-- End footer -->
 
+<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
+<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
 <!-- image lazyload lib -->
 <script type="text/javascript" src="js/vendor/lazyload.min.js"></script>
 
@@ -109,9 +130,9 @@
 <!-- idb wrapper lib -->
 <script type="text/javascript" src="js/vendor/idb.js"></script>
 <script type="text/javascript" src="js/idb.js"></script>
-<!-- Google Maps -->
-<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap"></script>
+<!--&lt;!&ndash; Google Maps &ndash;&gt;-->
+<!--<script async defer-->
+		<!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap"></script>-->
 <!-- End scripts -->
 
 </body>

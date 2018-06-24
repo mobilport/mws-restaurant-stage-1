@@ -16,7 +16,7 @@ var filesToCache = [
 	'/restaurant.html'
 ];
 
-var staticCacheName = 'pages-cache-v3';
+var staticCacheName = 'pages-cache-v4';
 
 self.addEventListener('install', function(event) {
 	event.waitUntil(
