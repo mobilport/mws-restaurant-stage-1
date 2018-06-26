@@ -24,7 +24,7 @@
         width: calc(100% - 60px);
     }
 
-    #map {
+    .home-map #map {
         display: none;
     }
 
