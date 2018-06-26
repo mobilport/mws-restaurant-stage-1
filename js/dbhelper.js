@@ -79,7 +79,8 @@ class DBHelper {
 				.objectStore('reviews').index('id');
 
 			return index.getAll().then(function(reviews) {
-				callback(null, reviews);
+				const related = reviews.filter(review => review.restaurant_id == restaurantId)
+				callback(null, related);
 			});
 
 		});
