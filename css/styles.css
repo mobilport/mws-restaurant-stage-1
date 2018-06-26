@@ -469,3 +469,7 @@ textarea {
 #showMap {
   display: none;
 }
+
+.filter-wrapper button {
+  margin: 0 10px;
+}
