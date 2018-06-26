@@ -116,7 +116,7 @@ hideAddReviewForm = (e) => {
 };
 
 starClick = () => {
-	self.restaurant.is_favorite = !self.restaurant.is_favorite;
+	self.restaurant.is_favorite = !JSON.parse(self.restaurant.is_favorite);
 	starRestaurantHtml();
 
 	if (navigator.onLine === true) {
@@ -132,10 +132,8 @@ starClick = () => {
 }
 
 starRestaurant = () => {
-	const newFlag = self.restaurant.is_favorite ? !JSON.parse(self.restaurant.is_favorite) : true;
-	DBHelper.putFavorite(self.restaurant.id, newFlag)
+	DBHelper.putFavorite(self.restaurant.id, JSON.parse(self.restaurant.is_favorite))
 		.then(response => {
-			//self.restaurant.is_favorite = JSON.parse(response.is_favorite);
 			starRestaurantHtml();
 		});
 }
