@@ -16,17 +16,6 @@ if ('serviceWorker' in navigator) {
 	});
 }
 
-/**
- * Fetch neighborhoods and cuisines as soon as the page is loaded.
- */
-// document.addEventListener('DOMContentLoaded', (event) => {
-// 	// Then later, request a one-off sync:
-//
-// 	// fetchNeighborhoods();
-// 	// fetchCuisines();
-// 	fetchNeighborhoodsAndCuisines();
-// });
-
 $(document).ready(function() {
 	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap')
 		.then( () => {
@@ -42,20 +31,6 @@ showMapOnMobile = () => {
 	button.style.display = 'none';
 
 }
-
-/**
- * Fetch all neighborhoods and set their HTML.
- */
-// fetchNeighborhoods = () => {
-// 	DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-// 		if (error) { // Got an error
-// 			console.error(error);
-// 		} else {
-// 			self.neighborhoods = neighborhoods;
-// 			fillNeighborhoodsHTML();
-// 		}
-// 	});
-// }
 
 fetchNeighborhoodsAndCuisines = () => {
 	DBHelper.fetchNeighborhoodsAndCuisines((error, data) => {
@@ -91,20 +66,6 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
 		select.append(option);
 	});
 }
-
-/**
- * Fetch all cuisines and set their HTML.
- */
-// fetchCuisines = () => {
-// 	DBHelper.fetchCuisines((error, cuisines) => {
-// 		if (error) { // Got an error!
-// 			console.error(error);
-// 		} else {
-// 			self.cuisines = cuisines;
-// 			fillCuisinesHTML();
-// 		}
-// 	});
-// }
 
 /**
  * Set cuisines HTML.
