@@ -19,15 +19,19 @@ if ('serviceWorker' in navigator) {
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
-	// Then later, request a one-off sync:
-
-	fetchNeighborhoods();
-	fetchCuisines();
-});
+// document.addEventListener('DOMContentLoaded', (event) => {
+// 	// Then later, request a one-off sync:
+//
+// 	// fetchNeighborhoods();
+// 	// fetchCuisines();
+// 	fetchNeighborhoodsAndCuisines();
+// });
 
 $(document).ready(function() {
-	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap');
+	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap')
+		.then( () => {
+			fetchNeighborhoodsAndCuisines()
+		});
 });
 
 showMapOnMobile = () => {
@@ -42,13 +46,28 @@ showMapOnMobile = () => {
 /**
  * Fetch all neighborhoods and set their HTML.
  */
-fetchNeighborhoods = () => {
-	DBHelper.fetchNeighborhoods((error, neighborhoods) => {
+// fetchNeighborhoods = () => {
+// 	DBHelper.fetchNeighborhoods((error, neighborhoods) => {
+// 		if (error) { // Got an error
+// 			console.error(error);
+// 		} else {
+// 			self.neighborhoods = neighborhoods;
+// 			fillNeighborhoodsHTML();
+// 		}
+// 	});
+// }
+
+fetchNeighborhoodsAndCuisines = () => {
+	DBHelper.fetchNeighborhoodsAndCuisines((error, data) => {
 		if (error) { // Got an error
 			console.error(error);
 		} else {
-			self.neighborhoods = neighborhoods;
+			self.neighborhoods = data.neighborhoods;
+			self.cuisines = data.cuisines;
+			self.restaurants = data.restaurants;
 			fillNeighborhoodsHTML();
+			fillCuisinesHTML();
+			fillRestaurantsHTML();
 		}
 	});
 }
@@ -58,6 +77,13 @@ fetchNeighborhoods = () => {
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
 	const select = document.getElementById('neighborhoods-select');
+	select.options.length = 0;
+
+	const all = document.createElement('option');
+	all.innerHTML = 'All Neighborhoods';
+	all.value = 'all';
+	select.append(all);
+
 	neighborhoods.forEach(neighborhood => {
 		const option = document.createElement('option');
 		option.innerHTML = neighborhood;
@@ -69,22 +95,28 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
 /**
  * Fetch all cuisines and set their HTML.
  */
-fetchCuisines = () => {
-	DBHelper.fetchCuisines((error, cuisines) => {
-		if (error) { // Got an error!
-			console.error(error);
-		} else {
-			self.cuisines = cuisines;
-			fillCuisinesHTML();
-		}
-	});
-}
+// fetchCuisines = () => {
+// 	DBHelper.fetchCuisines((error, cuisines) => {
+// 		if (error) { // Got an error!
+// 			console.error(error);
+// 		} else {
+// 			self.cuisines = cuisines;
+// 			fillCuisinesHTML();
+// 		}
+// 	});
+// }
 
 /**
  * Set cuisines HTML.
  */
 fillCuisinesHTML = (cuisines = self.cuisines) => {
 	const select = document.getElementById('cuisines-select');
+	select.options.length = 0;
+
+	const all = document.createElement('option');
+	all.innerHTML = 'All Cuisines';
+	all.value = 'all';
+	select.append(all);
 
 	cuisines.forEach(cuisine => {
 		const option = document.createElement('option');
@@ -117,7 +149,7 @@ window.initMap = () => {
 		}, 1000);
 	});
 
-	updateRestaurants();
+	// updateRestaurants();
 }
 
 /**
@@ -164,6 +196,7 @@ resetRestaurants = (restaurants) => {
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
 	if (restaurants.length > 0) {
 		const ul = document.getElementById('restaurants-list');
+		ul.innerHTML = '';
 		restaurants.forEach(restaurant => {
 			ul.append(createRestaurantHTML(restaurant));
 		});
