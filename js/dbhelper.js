@@ -73,9 +73,30 @@ class DBHelper {
 	}
 
 	static fetchReviews(restaurantId, callback) {
+		// Trying to read data from idb
+		DBHelper.dbPromise.then(function(db) {
+			var index = db.transaction('reviews')
+				.objectStore('reviews').index('id');
+
+			return index.getAll().then(function(reviews) {
+				callback(null, reviews);
+			});
+
+		});
+
 		fetch(DBHelper.DATABASE_URL + '/reviews/?restaurant_id=' + restaurantId)
 			.then(response => response.json())
 			.then(reviews => {
+
+				DBHelper.dbPromise.then(function(db) {
+					var tx = db.transaction('reviews', 'readwrite');
+					var reviewsStore = tx.objectStore('reviews');
+
+					for (let i = 0; i < reviews.length; i++) {
+						reviewsStore.put(reviews[i]);
+					}
+				});
+
 				callback(null, reviews);
 			});
 	}
