@@ -465,3 +465,7 @@ button {
 textarea {
     min-height: 100px;
 }
+
+#showMap {
+  display: none;
+}

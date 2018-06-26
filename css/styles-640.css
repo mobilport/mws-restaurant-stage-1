@@ -23,4 +23,21 @@
     #restaurants-list .view-details {
         width: calc(100% - 60px);
     }
+
+    #map {
+        display: none;
+    }
+
+    #showMap {
+        display: block;
+        text-align: center;
+        margin: 10px;
+        line-height: 30px;
+    }
+
+    #showMap button {
+        display: block;
+        clear: both;
+        margin: 5px auto;
+    }
 }

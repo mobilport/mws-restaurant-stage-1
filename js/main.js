@@ -30,6 +30,15 @@ $(document).ready(function() {
 	$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAMTaIbS4XyQz4v3SXEZKGCfbrtN1WyTaU&libraries=places&callback=initMap');
 });
 
+showMapOnMobile = () => {
+	const button = document.getElementById('showMap');
+	const map = document.getElementById('map');
+
+	map.style.display = 'block';
+	button.style.display = 'none';
+
+}
+
 /**
  * Fetch all neighborhoods and set their HTML.
  */
